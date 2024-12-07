@@ -1,11 +1,13 @@
 import Feed from "@/components/Feed";
 import News from "@/components/News";
 import Sidebar from "@/components/Sidebar";
+import { handleUSerConnections } from "@/lib/serveractions";
 import { currentUser } from "@clerk/nextjs/server";
 
  
 export default async function Home() {
   const user = await currentUser();
+  const userInfo=await handleUSerConnections(user)  
    
   return (
      <div className="pt-20">
@@ -13,7 +15,7 @@ export default async function Home() {
           {/* Sidebar  */}
           <Sidebar user = {user}/>
           {/* Feed  */}
-          <Feed user={user}/>
+          <Feed user={user} userInfo={userInfo}/>
           {/* News  */}
           <News/>
       </div>
